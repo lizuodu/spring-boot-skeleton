@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>login/index</title>
+<link th:href="@{/css/test.css}" rel="stylesheet" type="text/css" />
+<script th:src="@{/js/jquery.min.js}"></script>
+</head>
+<body>
+	<h1>Login</h1>
+
+	<form name="loginForm">
+		<p>
+			<input type="hidden" id="id" name="id" />
+		</p>
+		<p>
+			<input type="hidden" id="formId" name="formId" value="loginForm" />
+		</p>
+		<p>
+			name:<input type="text" id="name" name="name" />
+		</p>
+	</form>
+	<input type="button" id="post" value="提交" />
+</body>
+</html>

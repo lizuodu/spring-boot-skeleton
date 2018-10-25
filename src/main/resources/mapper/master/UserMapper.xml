@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.master.UserMapper">
+
+	<resultMap type="com.example.demo.model.User" id="userMap">
+		<!-- primary key -->
+		<id column="id" property="id" />
+		<!-- name -->
+		<result column="name" property="name" />
+		<!-- age -->
+		<result column="age" property="age" />
+		<!-- flag -->
+		<result column="flag" property="flag" />
+		<!-- createBy -->
+		<result column="create_by" property="createBy" />
+		<!-- createDate -->
+		<result column="create_date" property="createDate" />
+		<!-- updateBy -->
+		<result column="update_by" property="updateBy" />
+		<!-- updateDate -->
+		<result column="update_date" property="updateDate" />
+	</resultMap>
+
+	<sql id="columns">
+		name
+		,age
+		,flag
+		,create_by
+		,create_date
+		,update_by
+		,update_date
+	</sql>
+
+	<sql id="whereClause">
+		<if test="id != null">
+			and id = #{id}
+		</if>
+		<if test="name != null and name.trim() !=''">
+			and name = #{name}
+		</if>
+		<if test="age != null">
+			and age = #{age}
+		</if>
+		<if test="flag != null">
+			and flag = #{flag}
+		</if>
+		<if test="createBy != null">
+			and create_by = #{createBy}
+		</if>
+		<if test="createDate != null and createDate !=''">
+			and create_date = #{createDate}
+		</if>
+		<if test="updateBy != null">
+			and update_by = #{updateBy}
+		</if>
+		<if test="updateDate != null and updateDate !=''">
+			and update_date = #{updateDate}
+		</if>
+	</sql>
+
+	<insert id="insert" parameterType="com.example.demo.model.User"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO t_user(
+		<include refid="columns" />
+		)
+		VALUES(
+			#{name}
+			,#{age}
+			,#{flag}
+			,#{createBy}
+			,#{createDate}
+			,#{updateBy}
+			,#{updateDate}
+			)
+	</insert>
+	
+	<insert id="insertBatch" parameterType="com.example.demo.model.User">
+		INSERT t_user(<include refid="columns"/>) VALUES 
+		<foreach item="modelList" collection="list" separator=",">
+			(
+			#{name}
+			,#{age}
+			,#{flag}
+			,#{createBy}
+			,#{createDate}
+			,#{updateBy}
+			,#{updateDate}
+			)
+		</foreach>
+	</insert>
+
+	<update id="update" parameterType="com.example.demo.model.User">
+		UPDATE t_user
+		<set>
+			<if test="name != null and name !=''">name = #{name},</if>
+			<if test="age != null">age = #{age},</if>
+			<if test="flag != null">flag = #{flag} ,</if>
+			<if test="createAt != null">create_by = #{createBy} ,</if>
+			<if test="createDate != null">create_date = #{createDate} ,</if>
+			<if test="updateAt != null">update_by = #{updateBy} ,</if>
+			<if test="updateDate != null">update_date = #{updateDate} ,</if>
+		</set>
+		WHERE id=#{id}
+	</update>
+	
+	<update id="delete" parameterType="com.example.demo.model.User">
+		UPDATE t_user SET flag=1 WHERE id=#{id}
+	</update>
+
+	<select id="findByPrimaryKey" parameterType="Long"
+		resultMap="userMap">
+		SELECT id,
+		<include refid="columns" />
+		FROM t_user WHERE flag=0 AND id = #{id}
+	</select>
+	
+	<select id="findByModel" parameterType="com.example.demo.model.User"
+		resultMap="userMap">
+		SELECT id,
+		<include refid="columns" />
+		FROM t_user WHERE flag=0 
+		<include refid="whereClause" />
+	</select>
+	
+	<select id="findAll" parameterType="com.example.demo.model.User"
+		resultMap="userMap">
+		SELECT id,
+		<include refid="columns" />
+		FROM t_user WHERE flag=0
+	</select>
+	
+	<select id="count" parameterType="com.example.demo.model.User" resultType="int" >
+		SELECT COUNT(id) FROM t_user WHERE flag=0 <include refid="whereClause"/>
+	</select>
+
+</mapper>
+
+
+

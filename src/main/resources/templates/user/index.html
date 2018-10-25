@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>user/index</title>
+<!--link href="../static/css/test.css" rel="stylesheet"/-->
+<link th:href="@{/css/test.css}" rel="stylesheet" type="text/css" />
+<script th:src="@{/js/jquery.min.js}"></script>
+</head>
+<body>
+	<h1 th:text="${controller}"></h1>
+
+	<form name="userForm">
+		<p>
+			<input type="hidden" id="id" name="id" />
+		</p>
+		<p>
+			<input type="hidden" id="formId" name="formId" value="userForm" />
+		</p>
+		<p>
+			name:<input type="text" id="name" name="name" />
+		</p>
+		<p>
+			age :<input type="text" id="age" name="age" />
+		</p>
+	</form>
+
+
+	<p class="formFieldError"></p>
+	<input type="button" id="post" value="提交" />
+
+	<script th:inline="javascript">
+		$(document).ready(function() {
+			$.get([[@{/api/v2/users?pageNum=1&pageSize=2}]], function (res) {
+				
+			});
+			$("#post").click(function() {
+				$.ajax({ 
+				    type:"POST", 
+				    url: [[@{/api/v1/user}]], 
+				    dataType:"json",      
+				    contentType:"application/json",   
+				    data: JSON.stringify({
+				    	formId: $("#formId").val(),
+						name : $("#name").val(),
+						age : $("#age").val()
+					}),
+				    success:function(res){
+				    	$(".formFieldError").html("");
+						if (res.isSuccess) {
+							console.log(res);
+						} else {
+							if (res.data) {
+								$(".formFieldError").html(JSON.stringify(res.data));
+							} else {
+								$(".formFieldError").html(res.message);
+							}
+						}
+				    },
+				    error:function(res) {}
+				});
+			});
+		});
+	</script>
+</body>
+</html>
