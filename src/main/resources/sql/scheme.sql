@@ -1,3 +1,5 @@
+USE test;
+
 CREATE TABLE `t_user` (
 	`id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '自增id',
 	`name` VARCHAR(10) NULL DEFAULT NULL COMMENT '姓名',
@@ -13,3 +15,6 @@ COLLATE='utf8_general_ci'
 ENGINE=InnoDB
 AUTO_INCREMENT=38
 ;
+
+
+

@@ -35,7 +35,7 @@ public interface BaseMapper<T> {
 	 * @param model
 	 * @throws Exception
 	 */
-	void update(T model) throws Exception;
+	int update(T model) throws Exception;
 
 	/**
 	 * 删除数据
@@ -43,7 +43,7 @@ public interface BaseMapper<T> {
 	 * @param model
 	 * @throws Exception
 	 */
-	void delete(T model) throws Exception;
+	int delete(T model) throws Exception;
 
 	/**
 	 * 根据id查询单条记录
