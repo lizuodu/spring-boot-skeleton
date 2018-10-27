@@ -20,6 +20,10 @@ public class BaseTest {
 	@Resource
 	public Config config;
 	
+	public void dumpResult(Object result) {
+		this.dumpResult(null, result);
+	}
+	
 	/**
 	 * 打印请求URI和结果
 	 * @param url
@@ -27,7 +31,7 @@ public class BaseTest {
 	 */
 	public void dumpResult(URL url, Object result) {
 		System.out.println("=======================[TEST]==========================");
-        System.out.println("请求：" + url.toString());
+        if (url != null) System.out.println("请求：" + url.toString());
         System.out.println("结果：" + result);
         System.out.println("=======================================================");
 	}
