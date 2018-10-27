@@ -1,4 +1,4 @@
-package com.example.demo.tes.api;
+package com.example.demo.test.api;
 
 import static org.junit.Assert.assertNotNull;
 
