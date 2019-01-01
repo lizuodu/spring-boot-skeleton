@@ -3,6 +3,7 @@ package com.example.demo.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.annotation.NotDuplicate;
 import com.example.demo.mapper.BaseMapper;
 import com.example.demo.mapper.master.UserMapper;
 import com.example.demo.model.User;
@@ -32,6 +33,7 @@ public class UserServiceImpl extends AbstractDataBaseServiceImpl<User> implement
 	 * @param userQuery
 	 * @throws Exception
 	 */
+	@NotDuplicate
 	@Override
 	public User addOrModifyUser(UserQuery userQuery) throws Exception {
 		User user = BeanUtil.map(userQuery, User.class);

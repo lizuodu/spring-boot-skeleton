@@ -7,14 +7,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * 返回Dto注解
+ * 返回DTO注解
  * 
  * @author lizuodu
  * @date 2018/09/27
  */
 @Retention(RUNTIME)
 @Target(METHOD)
-public @interface Dto {
+public @interface DTO {
 	
 	Class<?> toType();
 

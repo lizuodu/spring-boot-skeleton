@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
-import com.example.demo.annotation.Dto;
+import com.example.demo.annotation.DTO;
 import com.example.demo.dto.PageBean;
 import com.example.demo.dto.Result;
-import com.example.demo.dto.UserDto;
+import com.example.demo.dto.UserDTO;
 import com.example.demo.model.User;
 import com.example.demo.model.UserQuery;
 import com.example.demo.service.UserService;
@@ -47,7 +47,7 @@ public class UserApi {
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
-	@Dto(toType = UserDto.class)
+	@DTO(toType = UserDTO.class)
 	@RequestMapping(value = "/v1/users", method = RequestMethod.GET)
 	public Result<Object> getAllV1() 
 			throws InstantiationException, IllegalAccessException {
@@ -64,7 +64,7 @@ public class UserApi {
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
-	@Dto(toType = UserDto.class)
+	@DTO(toType = UserDTO.class)
 	@RequestMapping(value = "/v2/users", method = RequestMethod.GET)
 	public Result<Object> getAllV2(
 			@RequestParam(required=true,defaultValue="1") Integer pageNum,
@@ -100,7 +100,7 @@ public class UserApi {
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
-	@Dto(toType = UserDto.class)
+	@DTO(toType = UserDTO.class)
 	@RequestMapping(value = "/v2/user/{id}", method = RequestMethod.GET)
 	public Result<Object> getByIdV2(@PathVariable("id") Long userId) 
 			throws InstantiationException, IllegalAccessException {
@@ -115,7 +115,7 @@ public class UserApi {
 	 * @return
 	 * @throws Exception
 	 */
-	@Dto(toType = UserDto.class)
+	@DTO(toType = UserDTO.class)
 	@RequestMapping(value = "/v1/user", method = RequestMethod.POST)
 	public Result<Object> addOrModifyUserV1(@RequestBody @Valid UserQuery userQuery, BindingResult bindResult){
 		try {

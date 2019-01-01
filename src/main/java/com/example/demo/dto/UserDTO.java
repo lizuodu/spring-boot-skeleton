@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author lizuodu
  * @date 2018/09/27
  */
-public class UserDto implements Serializable {
+public class UserDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	

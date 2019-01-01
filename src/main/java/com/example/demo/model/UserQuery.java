@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
  * @author lizuodu
  * @date 2018/09/27
  */
-public class UserQuery {
+public class UserQuery extends BaseModel {
 
 	private Long id;
 
@@ -23,8 +23,6 @@ public class UserQuery {
 	@DecimalMin(value = "0", message = "年龄不能小于{value}")
 	@DecimalMax(value = "200", message = "年龄不能大于{value}")
 	private Integer age;
-
-	private String formId;
 
 	public Long getId() {
 		return id;
@@ -48,14 +46,6 @@ public class UserQuery {
 
 	public void setAge(Integer age) {
 		this.age = age;
-	}
-
-	public String getFormId() {
-		return formId;
-	}
-
-	public void setFormId(String formId) {
-		this.formId = formId;
 	}
 
 }

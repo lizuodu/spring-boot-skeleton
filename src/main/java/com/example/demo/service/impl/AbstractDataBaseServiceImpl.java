@@ -3,16 +3,9 @@ package com.example.demo.service.impl;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.Resource;
-
-import org.apache.commons.lang3.StringUtils;
-
-import com.example.demo.cache.Cache;
-import com.example.demo.exception.BizException;
 import com.example.demo.mapper.BaseMapper;
 import com.example.demo.model.BaseModel;
 import com.example.demo.service.DataBaseService;
-import com.example.demo.util.ServletUtil;
 
 /**
  * 数据库CRUD服务实现类
@@ -27,8 +20,6 @@ public abstract class AbstractDataBaseServiceImpl<T> implements DataBaseService<
 	 * @return
 	 */
 	public abstract BaseMapper<T> mapperInstance();
-	private final static int CACHE_EXPIRE = 5;
-	@Resource private Cache redisCache;
 	
 	protected void fillCreate(BaseModel baseModel) {
 		baseModel.setFlag(0);
@@ -47,19 +38,9 @@ public abstract class AbstractDataBaseServiceImpl<T> implements DataBaseService<
 	 */
 	@Override
 	public void insert(T model) throws Exception {
-		BaseModel baseModel = ((BaseModel) model);
-		String sessionId = ServletUtil.getSession().getId();
-		String formId = baseModel.getFormId();
-		String key = String.format("form:%s-%s", formId, sessionId);
-		if (StringUtils.isNotBlank(formId)) {
-			String value = this.redisCache.get(key);
-			if (value != null) {
-				throw new BizException("不能重复提交表单");
-			}
-		}
+		BaseModel baseModel = (BaseModel) model;
 		this.fillCreate(baseModel);
 		this.mapperInstance().insert(model);
-		this.redisCache.put(key, "1", CACHE_EXPIRE);
 	}
 
 	/**
